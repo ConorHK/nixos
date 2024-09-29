@@ -4,7 +4,7 @@ curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/disko.n
 nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/sda"'
 
 nixos-generate-config --no-filesystems --root /mnt
-curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/configuration.nix -o /etc/persist/nixos/configuration.nix
+curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/configuration.nix -o /mnt/etc/nixos/configuration.nix
 curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/flake.nix -o /mnt/etc/nixos/flake.nix
 curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/home.nix -o /mnt/etc/nixos/home.nix
 curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/disko.nix -o /mnt/etc/nixos/disko.nix
