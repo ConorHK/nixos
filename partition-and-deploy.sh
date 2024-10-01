@@ -9,3 +9,4 @@ curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/flake.n
 curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/home.nix -o /mnt/etc/nixos/home.nix
 curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/disko.nix -o /mnt/etc/nixos/disko.nix
 nixos-install --root /mnt --flake /mnt/etc/nixos#default
+cp -r /mnt/etc/nixos/* /mnt/persistent/etc/nixos/
