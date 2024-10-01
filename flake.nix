@@ -49,23 +49,28 @@
   }: let
     lib = import ./nix/lib {lib = nixpkgs.lib;} // nixpkgs.lib;
   in 
-    flake-parts.lib.mkFlake
-    {
-      inherit inputs;
-      specialArgs = {inherit lib;};
-    }
-    {
-      debug = true;
-      imports = [
-        treefmt-nix.flakeModule
-        flake-root.flakeModule
-        mission-control.flakeModule
-        ./nix
-        ./nixos
-      ];
-      systems = ["x86-64-linux"];
-      perSystem = {inputs', ...}: {
-        module.args.pkgs = inputs'.nixpkgs.legacyPackages;
-        module.args.lib = lib;
-      };
+    (flake-parts.lib.evalFlakeModule
+      {
+        inherit inputs;
+        specialArgs = {inherit lib;};
+      }
+      {
+        debug = true;
+        imports = [
+          (_: {
+            perSystem = {inputs', ...}: {
+              module.args.pkgs = inputs'.nixpkgs.legacyPackages;
+              module.args.lib = lib;
+            };
+          })
+          treefmt-nix.flakeModule
+          flake-root.flakeModule
+          mission-control.flakeModule
+          ./nix
+          ./nixos
+        ];
+        systems = ["x86_64-linux"];
+      })
+    .config
+    .flake;
 }
