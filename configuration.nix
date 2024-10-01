@@ -44,8 +44,8 @@
     umount /btrfs_tmp
   '';
 
-  fileSystems."/persistence".neededForBoot = true;
-  environment.persistence."/persistence/system" = {
+  fileSystems."/persistent".neededForBoot = true;
+  environment.persistence."/persistent/system" = {
     hideMounts = true;
     directories = [
       "/etc/nixos"
