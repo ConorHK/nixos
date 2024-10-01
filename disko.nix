@@ -4,7 +4,7 @@
   ...
 }: 
 let
-  swap = swap_size;
+  swap_size = swap;
 in
 {
   disko.devices = {
@@ -39,17 +39,17 @@ in
               subvolumes = {
                 "/root" = {
                   mountOptions = 
-                    [ "compress-zstd" ]; # compression for better performance
+                    [ "compress=zstd" ]; # compression for better performance
                   mountpoint = "/";
                 };
                 "/persistent" = {
                   mountOptions = 
-                    [ "compress-zstd" ];
+                    [ "compress=zstd" ];
                   mountpoint = "/persistent";
                 };
                 "/nix" = {
                   mountOptions = 
-                    [ "compress-zstd" "noatime" "noacl" ]; # optimize for nix store
+                    [ "compress=zstd" "noatime" "noacl" ]; # optimize for nix store
                   mountpoint = "/nix";
                 };
               };
