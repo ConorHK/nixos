@@ -1,7 +1,7 @@
 #!/bin/sh
 
 curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/disko.nix -o /tmp/disko.nix
-nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/sda"'
+nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/sda"' --arg swap '"8G"'
 
 nixos-generate-config --no-filesystems --root /mnt
 curl https://raw.githubusercontent.com/conorhk/nixos/refs/heads/mainline/configuration.nix -o /mnt/etc/nixos/configuration.nix
