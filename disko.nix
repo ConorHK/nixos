@@ -1,7 +1,12 @@
 {
   device ? throw "Set this to your disk device, e.g. /dev/sda",
+  swap ? throw "Set this to your expected swap size, e.g. 8G",
   ...
-}: {
+}: 
+let
+  swap = swap_size;
+in
+{
   disko.devices = {
     disk.main = {
       inherit device;
@@ -9,61 +14,42 @@
       content = {
         type = "gpt";
         partitions = {
-          boot = {
-            name = "boot";
-            size = "1M";
-            type = "EF02";
-          };
-          esp = {
-            name = "ESP";
-            size = "500M";
+          ESP = {
+            size = "512M";
             type = "EF00";
             content = {
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
+              mountOptions = [ "defaults" "umask=0077" ];
             };
           };
           swap = {
-            size = "8G";
+            size = swap_size;
             content = {
               type = "swap";
               resumeDevice = true;
             };
           };
           root = {
-            name = "root";
             size = "100%";
-            content = {
-              type = "lvm_pv";
-              vg = "root_vg";
-            };
-          };
-        };
-      };
-    };
-    lvm_vg = {
-      root_vg = {
-        type = "lvm_vg";
-        lvs = {
-          root = {
-            size = "100%FREE";
+            type = "8300"; # linux file system
             content = {
               type = "btrfs";
-              extraArgs = ["-f"];
-
               subvolumes = {
                 "/root" = {
+                  mountOptions = 
+                    [ "compress-zstd" ]; # compression for better performance
                   mountpoint = "/";
                 };
-
-                "/persist" = {
-                  mountOptions = ["subvol=persist" "noatime"];
-                  mountpoint = "/persist";
+                "/persistent" = {
+                  mountOptions = 
+                    [ "compress-zstd" ];
+                  mountpoint = "/persistent";
                 };
-
                 "/nix" = {
-                  mountOptions = ["subvol=nix" "noatime"];
+                  mountOptions = 
+                    [ "compress-zstd" "noatime" "noacl" ]; # optimize for nix store
                   mountpoint = "/nix";
                 };
               };
