@@ -27,9 +27,6 @@
   # Use nvim as the default editor
   environment.variables.EDITOR = "nvim";
 
-  # No need for sound on a server
-  sound.enable = false;
-
   # Use firewalls everywhere
   networking.firewall = {
     enable = true;
@@ -61,6 +58,7 @@
 
   # Use zsh as default shell
   users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
 
   # Define default system version
   system.stateVersion = "24.05";

@@ -17,8 +17,12 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    flake-root.url = "github.srid/flake-root";
-    mission-control.url = "github.PlatonicSystems/mission-control";
+    flake-root.url = "github:srid/flake-root";
+    flake-registry = {
+      url = "github:NixOS/flake-registry";
+      flake = false;
+    };
+    mission-control.url = "github:Platonic-Systems/mission-control";
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -44,7 +48,7 @@
     flake-parts,
     flake-root,
     mission-control,
-    treefmt-nix
+    treefmt-nix,
     ...
   }: let
     lib = import ./nix/lib {lib = nixpkgs.lib;} // nixpkgs.lib;
@@ -59,8 +63,8 @@
         imports = [
           (_: {
             perSystem = {inputs', ...}: {
-              module.args.pkgs = inputs'.nixpkgs.legacyPackages;
-              module.args.lib = lib;
+              _module.args.pkgs = inputs'.nixpkgs.legacyPackages;
+              _module.args.lib = lib;
             };
           })
           treefmt-nix.flakeModule

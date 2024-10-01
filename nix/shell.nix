@@ -4,12 +4,12 @@
     config,
     ...
   }: let
-    inherit (config.mission-control) installToDevShell;
-    inherit (pkgs) mkShellNoCC;
+    inherit (pkgs) mkShell;
   in {
-    devShells.default = installToDevShell (mkShellNoCC {
-      name = "devShell";
-      packages = with pkgs; [];
-    });
+    devShells.default = pkgs.mkShell {
+      inputsFrom = [
+        config.mission-control.devShell
+      ];
+    };
   };
 }
