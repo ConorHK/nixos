@@ -1,15 +1,7 @@
-{
-  device ? throw "Set this to your disk device, e.g. /dev/sda",
-  swap ? throw "Set this to your expected swap size, e.g. 8G",
-  ...
-}: 
-let
-  swap_size = swap;
-in
-{
+{...}: {
   disko.devices = {
     disk.main = {
-      inherit device;
+      device = "/dev/sda";
       type = "disk";
       content = {
         type = "gpt";
@@ -25,7 +17,7 @@ in
             };
           };
           swap = {
-            size = swap_size;
+            size = "8G";
             content = {
               type = "swap";
               resumeDevice = true;
