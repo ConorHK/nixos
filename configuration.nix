@@ -45,7 +45,7 @@
   '';
 
   fileSystems."/persistent".neededForBoot = true;
-  environment.persistence."/persistent/system" = {
+  environment.persistence."/persistent" = {
     hideMounts = true;
     directories = [
       "/etc/nixos"
