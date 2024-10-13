@@ -31,6 +31,7 @@
 
   stable-packages = with pkgs; [
     inputs.nixcats.packages.${system}.nvim
+    difftastic
     eza
   ];
 in {
@@ -88,7 +89,7 @@ in {
           conflictstyle = "diff3";
         };
         diff = {
-          colorMoved = "default";
+          external = "difft";
         };
       };
     };
@@ -172,7 +173,7 @@ in {
         gaa = "git add --all";
         gp = "git push";
         gl = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-	gd = "git diff";
+        gd = "git diff";
         nix = "noglob nix";
         source-zsh = "source $ZDOTDIR/.zshrc";
         home-manage = "home-manager switch --flake ~/.dotfiles && source $ZDOTDIR/.zshrc";
