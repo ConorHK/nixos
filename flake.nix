@@ -1,80 +1,95 @@
 {
-  description = "NixOS config flake";
+  description = "NixOS configuration";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://nix-community.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
-     
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-    flake-root.url = "github:srid/flake-root";
-    flake-registry = {
-      url = "github:NixOS/flake-registry";
-      flake = false;
-    };
-    mission-control.url = "github:Platonic-Systems/mission-control";
-
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    impermanence = {
-      url = "github:nix-community/impermanence";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nur.url = "github:nix-community/NUR";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixcats = {
+      url = "github:conorhk/vimrc";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
-  outputs = inputs @ {
-    nixpkgs,
-    flake-parts,
-    flake-root,
-    mission-control,
-    treefmt-nix,
-    ...
-  }: let
-    lib = import ./nix/lib {lib = nixpkgs.lib;} // nixpkgs.lib;
-  in 
-    (flake-parts.lib.evalFlakeModule
-      {
-        inherit inputs;
-        specialArgs = {inherit lib;};
-      }
-      {
-        debug = true;
-        imports = [
-          (_: {
-            perSystem = {inputs', ...}: {
-              _module.args.pkgs = inputs'.nixpkgs.legacyPackages;
-              _module.args.lib = lib;
+  outputs = inputs:
+    with inputs; let
+      secrets = builtins.fromJSON (builtins.readFile "${self}/secrets.json");
+
+      nixpkgsWithOverlays = system: (import nixpkgs rec {
+        inherit system;
+
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [];
+        };
+
+        overlays = [
+          nur.overlay
+
+          (_final: prev: {
+            unstable = import nixpkgs-unstable {
+              inherit (prev) system;
+              inherit config;
             };
           })
-          treefmt-nix.flakeModule
-          flake-root.flakeModule
-          mission-control.flakeModule
-          ./nix
-          ./nixos
         ];
-        systems = ["x86_64-linux"];
-      })
-    .config
-    .flake;
+      });
+
+      configurationDefaults = args: {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.backupFileExtension = "hm-backup";
+        home-manager.extraSpecialArgs = args;
+      };
+
+      argDefaults = {
+        inherit secrets inputs self nix-index-database;
+        channels = {
+          inherit nixpkgs nixpkgs-unstable;
+        };
+      };
+
+      mkNixosConfiguration = {
+        system ? "x86_64-linux",
+        hostname,
+        username,
+        args ? {},
+        modules,
+      }: let
+        specialArgs = argDefaults // {inherit hostname username;} // args;
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          pkgs = nixpkgsWithOverlays system;
+          modules =
+            [
+              (configurationDefaults specialArgs)
+              home-manager.nixosModules.home-manager
+            ]
+            ++ modules;
+        };
+    in {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+
+      nixosConfigurations.nixos = mkNixosConfiguration {
+        hostname = "nixos";
+        username = "conor"; 
+        modules = [
+          nixos-wsl.nixosModules.wsl
+          ./wsl.nix
+        ];
+      };
+    };
 }
