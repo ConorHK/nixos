@@ -9,21 +9,19 @@
 }: let
   unstable-packages = with pkgs.unstable; [
     bat
-    bottom
     coreutils
     curl
     du-dust
     fd
     findutils
-    fx
     git
     htop
     jq
-    killall
     mosh
     oscclip
     procs
     ripgrep
+    statix
     unzip
     wget
     zip
@@ -58,10 +56,10 @@ in {
 
   programs = {
     home-manager.enable = true;
+
     nix-index = {
       enable = true;
       enableZshIntegration = true;
-      
     };
     nix-index-database.comma.enable = true;
 
