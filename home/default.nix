@@ -4,7 +4,8 @@
   inputs,
   username,
   nix-index-database,
-  config,
+  home,
+  lib,
   ...
 }: let
   unstable-packages = with pkgs.unstable; [
@@ -29,6 +30,7 @@
 
   stable-packages = with pkgs; [
     inputs.nixcats.packages.${system}.nvim
+    inputs.script-directory.packages.${system}.default
     difftastic
     eza
   ];
@@ -40,19 +42,26 @@ in {
     ./common/tmux.nix
   ];
 
-  home.stateVersion = "22.11";
-
   home = {
     username = "${username}";
+    stateVersion = "22.11";
     homeDirectory = "/home/${username}";
 
-    sessionVariables.EDITOR = "nvim";
-    sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/zsh";
+    sessionVariables = {
+      EDITOR = "nvim";
+      SHELL = "/etc/profiles/per-user/${username}/bin/zsh";
+      SD_ROOT = "$HOME/.scripts";
+      SD_CAT = "bat";
+      SD_EDITOR = "nvim";
+    };
     packages = 
       stable-packages
       ++ unstable-packages;
+    
+    activation.cloneScriptsRepo = lib.hm.dag.entryAfter ["installPackages"] ''
+      run ${pkgs.git}/bin/git clone https://github.com/conorhk/scripts $HOME/.scripts || true
+  '';
   };
-
 
   programs = {
     home-manager.enable = true;

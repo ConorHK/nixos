@@ -21,6 +21,9 @@
       url = "github:conorhk/vimrc";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    script-directory = {
+      url = "github:conorhk/sd";
+    };
   };
 
   outputs = inputs:
