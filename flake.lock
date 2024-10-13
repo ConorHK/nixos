@@ -790,11 +790,11 @@
         "plugins-oil-git-status": "plugins-oil-git-status"
       },
       "locked": {
-        "lastModified": 1728833606,
-        "narHash": "sha256-3pNBVp558asXcPdyR8HfYQJS2FtTna3GuvBlcnQWkts=",
+        "lastModified": 1728849775,
+        "narHash": "sha256-LSG9foQqy/kzV/+mHokOtZYVTYxXV8Ri2DQNOzneTxI=",
         "owner": "conorhk",
         "repo": "vimrc",
-        "rev": "29524990653bff868d918f3c369c7d6439f14151",
+        "rev": "39370daaa9d6b98d687b2fa8d5efb917a1b1fc1c",
         "type": "github"
       },
       "original": {
@@ -1015,11 +1015,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1728844716,
-        "narHash": "sha256-RRFbJHDBFFJds6615HAslNNKCEWjo0vRgQYVIW7oC8k=",
+        "lastModified": 1728848611,
+        "narHash": "sha256-mfwAtkokr2pvZT3sRh2UK6th0WeCKz6lC43SvDEtZQ0=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "9dafce6b8d316bab94a3ff15c0133689ee67962c",
+        "rev": "44b404fe0bb08a0663bf52c56ba8cc8cfb30436b",
         "type": "github"
       },
       "original": {
