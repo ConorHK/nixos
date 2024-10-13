@@ -34,7 +34,7 @@
 
   home-manager.users.${username} = {
     imports = [
-      ./home.nix
+      ./home
     ];
   };
 
@@ -42,9 +42,11 @@
 
   wsl = {
     enable = true;
-    wslConf.automount.root = "/mnt";
-    wslConf.interop.appendWindowsPath = false;
-    wslConf.network.generateHosts = false;
+    wslConf = {
+      automount.root = "/mnt";
+      interop.appendWindowsPath = false;
+      network.generateHosts = false;
+    };
     defaultUser = username;
     startMenuLaunchers = true;
 

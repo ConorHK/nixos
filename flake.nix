@@ -48,10 +48,12 @@
       });
 
       configurationDefaults = args: {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.backupFileExtension = "hm-backup";
-        home-manager.extraSpecialArgs = args;
+	home-manager = {
+	  useGlobalPkgs = true;
+	  useUserPackages = true;
+	  backupFileExtension = "hm-backup";
+	  extraSpecialArgs = args;
+	};
       };
 
       argDefaults = {
