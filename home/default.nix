@@ -61,6 +61,10 @@ in {
     activation.cloneScriptsRepo = lib.hm.dag.entryAfter ["installPackages"] ''
       run ${pkgs.git}/bin/git clone https://github.com/conorhk/scripts $HOME/.scripts || true
   '';
+
+    sessionPath = [
+      "$SD_ROOT/.scripts"
+    ];
   };
 
   programs = {
