@@ -129,22 +129,22 @@ in {
         fi
         
         git_prompt() {
-          repo=$(/usr/bin/git rev-parse --is-inside-work-tree 2> /dev/null)
+          repo=$(git rev-parse --is-inside-work-tree 2> /dev/null)
           if [[ ! "$repo" || "$repo" = false ]]; then
             return
           fi
         
-          bare_repo=$(/usr/bin/git rev-parse --is-bare-repository 2> /dev/null)
+          bare_repo=$(git rev-parse --is-bare-repository 2> /dev/null)
           if [ "$bare_repo" = true ]; then
             return
           fi
         
           branch="$(git branch | grep "^*" | tr -d "*" | tr -d " ")"
-          if [[ $(/usr/bin/git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then
+          if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then
             color_git="%F{red}"
           fi
         
-          stat=$(/usr/bin/git status | sed -n 2p)
+          stat=$(git status | sed -n 2p)
           case "$stat" in
             *ahead*)
               stat="$ico_ahead"
