@@ -53,6 +53,7 @@ in {
       SD_ROOT = "$HOME/.scripts";
       SD_CAT = "bat";
       SD_EDITOR = "nvim";
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     };
     packages = 
       stable-packages
