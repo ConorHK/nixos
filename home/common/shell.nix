@@ -89,6 +89,8 @@
       home-manage = "home-manager switch --flake ~/.dotfiles && source $ZDOTDIR/.zshrc";
       vim = "nvim";
       ls = "eza";
+      bat = "bat --style='plain,rule,header' --paging=never --italic-text=always";
+      cat = "bat --style='plain,rule,header' --paging=never --italic-text=always";
     };
 
     history = {
