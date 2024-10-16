@@ -21,6 +21,7 @@
     mosh
     oscclip
     procs
+    python3
     ripgrep
     statix
     unzip
