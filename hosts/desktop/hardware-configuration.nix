@@ -1,40 +1,39 @@
+{ lib, ...}:
 {
-  imports = [../common/optional/ephemeral-btrfs.nix];
+  imports = [
+  ../common/optional/ephemeral-btrfs.nix
+  ../common/optional/disko-btrfs.nix
+  ../../modules/btrfs.nix
+  ];
 
   boot = {
     initrd = {
       availableKernelModules = [
-        "ata_piix"
-        "sr_mod"
-        "uhci_hcd"
-        "virtio_blk"
-        "virtio_pci"
-      ];
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usb_storage"
+        "usbhid"
+        "sd_mod"      ];
+      kernelModules = ["kvm-amd"];
     };
-    loader.grub = {
-      enable = true;
-      version = 2;
-      device = "/dev/vda";
+  loader = {
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+      };
+      efi.canTouchEfiVariables = true;
     };
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/alcyone";
-    fsType = "btrfs";
-    options = ["subvol=boot"];
+    device = "/dev/disk/by-label/ESP";
+    fsType = "vfat";
   };
 
-  swapDevices = [
-    {
-      device = "/swap/swapfile";
-      size = 3072;
-    }
-  ];
+  swapDevices = [ { device = "/swap/swapfile"; } ];
 
-  hardware.cpu.intel.updateMicrocode = true;
+  hardware.cpu.amd.updateMicrocode = true;
 
-  virtualisation.hypervGuest.enable = true;
-  systemd.services.hv-kvp.unitConfig.ConditionPathExists = ["/dev/vmbus/hv_kvp"];
-
-  nixpkgs.hostPlatform = "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

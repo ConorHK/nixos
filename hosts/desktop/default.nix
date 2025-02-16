@@ -10,25 +10,25 @@
   ];
 
   networking = {
-    hostName = "alcyone";
+    hostName = "desktop";
     useDHCP = true;
     dhcpcd.IPv6rs = true;
-    interfaces.ens3 = {
+    interfaces.enp13s0 = {
       useDHCP = true;
       wakeOnLan.enable = true;
       ipv4.addresses = [
         {
-          address = "216.238.110.82";
-          prefixLength = 23;
+          address = "192.168.0.07";
+          prefixLength = 24;
         }
       ];
       ipv6.addresses = [
         {
-          address = "2001:19f0:b800:1bf8::1";
+          address = "e80::1ead:9efd:142a:580b";
           prefixLength = 64;
         }
       ];
     };
   };
-  system.stateVersion = "22.05";
+  system.stateVersion = "24.11";
 }

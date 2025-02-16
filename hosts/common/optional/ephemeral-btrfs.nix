@@ -1,5 +1,4 @@
 # This file contains an ephemeral btrfs root configuration
-# TODO: perhaps partition using disko in the future
 # TODO: set the device through a custom option, or extract from config.disko.devices.disk.<name>.content.partitions.<name>.device
 {
   lib,
