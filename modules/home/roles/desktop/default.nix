@@ -18,28 +18,28 @@ in {
       development.enable = true;
     };
 
-    browsers.firefox.enable = true;
+    # browsers.firefox.enable = true;
 
-    programs.terminals = {
-      terminals.foot.enable = true;
-      terminals.alacritty.enable = true;
-      guis.enable = true;
-      shotwell.enable = true;
-    };
+    # programs = {
+    #   terminals.foot.enable = true;
+    #   terminals.alacritty.enable = true;
+    #   guis.enable = true;
+    #   shotwell.enable = true;
+    # };
 
     # Fixes tray icons: https://github.com/nix-community/home-manager/issues/2064#issuecomment-887300055
-    systemd.user.targets.tray = {
-      Unit = {
-        Description = "Home Manager System Tray";
-        Requires = ["graphical-session-pre.target"];
-      };
-    };
+    # systemd.user.targets.tray = {
+    #   Unit = {
+    #     Description = "Home Manager System Tray";
+    #     Requires = ["graphical-session-pre.target"];
+    #   };
+    # };
 
     services = {
-      ndots.kdeconnect.enable = true;
-      spotify.enable = true;
+      # ndots.kdeconnect.enable = true;
+      # spotify.enable = true;
     };
-    desktops.addons.xdg.enable = true;
+    # desktops.addons.xdg.enable = true;
 
     home.sessionVariables = {
       MOZ_ENABLE_WAYLAND = 1;

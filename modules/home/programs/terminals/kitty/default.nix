@@ -5,9 +5,9 @@
 }:
 with lib;
 with lib.ndots; let
-  cfg = config.cli.terminals.kitty;
+  cfg = config.programs.terminals.kitty;
 in {
-  options.cli.terminals.kitty = with types; {
+  options.programs.terminals.kitty = with types; {
     enable = mkBoolOpt false "enable kitty terminal emulator";
   };
 

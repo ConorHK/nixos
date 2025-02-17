@@ -43,7 +43,7 @@ in {
       homeManagerIntegration.autoImport = false;
       homeManagerIntegration.followSystem = false;
 
-      image = pkgs.nixicle.wallpapers.windows-error;
+      image = pkgs.ndots.wallpapers.windows-error;
 
       cursor = {
         name = "Bibata-Modern-Classic";
@@ -69,7 +69,7 @@ in {
         };
 
         monospace = {
-          package = pkgs.nixicle.monolisa;
+          package = pkgs.ndots.monolisa;
           name = "MonoLisa";
         };
 

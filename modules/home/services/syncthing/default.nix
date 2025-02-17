@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nixicle.syncthing;
+  cfg = config.services.ndots.syncthing;
 in {
   options.services.ndots.syncthing = {
     enable = mkEnableOption "Enable syncthing service";

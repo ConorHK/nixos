@@ -9,10 +9,10 @@ with lib;
 with lib.ndots;
 
 let
-  cfg = config.cli.programs.zsh;
+  cfg = config.cli.shells.zsh;
 in
 {
-  options.cli.programs.zsh = {
+  options.cli.shells.zsh = {
     enable = mkOption {
       default = false;
       type = with types; bool;

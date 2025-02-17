@@ -23,7 +23,6 @@ in {
     };
 
     desktops.addons = {
-      kanshi.enable = true;
       rofi.enable = true;
       swaync.enable = true;
       waybar.enable = true;

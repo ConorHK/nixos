@@ -17,7 +17,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.nixicle.kdeconnect.enable = lib.mkForce false;
+    services.ndots.kdeconnect.enable = lib.mkForce false;
 
     home.packages = with pkgs; [
       gnome-tweaks
@@ -92,7 +92,7 @@ in {
       };
 
       # "org/gnome/desktop/background" = {
-      #   picture-uri-dark = "file:///${pkgs.nixicle.wallpapers.Kurzgesagt-Galaxy_2}";
+      #   picture-uri-dark = "file:///${pkgs.ndots.wallpapers.Kurzgesagt-Galaxy_2}";
       # };
 
       "org/gnome/shell/extensions/search-light" = {

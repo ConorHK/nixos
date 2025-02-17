@@ -9,11 +9,11 @@ with lib;
 with lib.ndots;
 
 let
-  cfg = config.cli.programs.cnvim;
+  cfg = config.cli.editors.cnvim;
 in
 {
   imports = [ inputs.cnvim.homeModule ];
-  options.cli.programs.cnvim = {
+  options.cli.editors.cnvim = {
     enable = mkOption {
       default = false;
       type = with types; bool;

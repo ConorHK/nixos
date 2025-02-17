@@ -4,10 +4,10 @@
   ...
 }:
 with lib;
-with lib.nixicle; let
-  cfg = config.security.nixicle.doas;
+with lib.ndots; let
+  cfg = config.security.ndots.doas;
 in {
-  options.security.nixicle.doas = {
+  options.security.ndots.doas = {
     enable = mkBoolOpt false "Whether or not to replace sudo with doas.";
   };
 

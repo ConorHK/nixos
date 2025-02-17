@@ -49,7 +49,7 @@ in {
         };
       };
 
-      image = pkgs.nixicle.wallpapers.nixppuccin;
+      image = pkgs.ndots.wallpapers.nixppuccin;
 
       cursor = {
         name = "Bibata-Modern-Classic";
@@ -75,7 +75,7 @@ in {
         };
 
         monospace = {
-          package = pkgs.nixicle.monolisa;
+          package = pkgs.ndots.monolisa;
           name = "MonoLisa";
         };
 

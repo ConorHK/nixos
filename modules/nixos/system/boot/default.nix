@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.nixicle) mkBoolOpt;
+  inherit (lib.ndots) mkBoolOpt;
 
   cfg = config.system.boot;
 in {

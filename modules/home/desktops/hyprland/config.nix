@@ -48,7 +48,6 @@ in {
           [
             "dbus-update-activation-environment --systemd --all"
             "systemctl --user import-environment QT_QPA_PLATFORMTHEME"
-            "${pkgs.kanshi}/bin/kanshi"
             "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
             "${pkgs.pyprland}/bin/pypr"
             "${pkgs.clipse}/bin/clipse -listen"

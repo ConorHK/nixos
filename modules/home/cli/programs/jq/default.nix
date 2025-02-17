@@ -12,14 +12,14 @@ let
 in
 {
   options.cli.programs.jq = {
-    enable = mkoption {
+    enable = mkOption {
       default = false;
       type = with types; bool;
       description = "json parser";
     };
   };
 
-  config = mkif cfg.enable {
+  config = mkIf cfg.enable {
     programs = {
       jq = {
         enable = true;

@@ -95,14 +95,13 @@
     stylix.url = "github:danth/stylix";
     catppuccin.url = "github:catppuccin/nix";
 
-    # Terminal
-    zjstatus = {
-      url = "github:dj95/zjstatus";
-    };
-
     # Neovim
     cnvim = {
       url = "github:conorhk/vimrc";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    script-directory = {
+      url = "github:conorhk/sd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -113,7 +112,6 @@
       src = ./.;
 
       snowfall = {
-        metadata = "ndots";
         namespace = "ndots";
         meta = {
           name = "ndots";

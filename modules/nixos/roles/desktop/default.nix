@@ -7,7 +7,7 @@
   ...
 }:
 with lib;
-with lib.nixicle; let
+with lib.ndots; let
   cfg = config.roles.desktop;
 in {
   options.roles.desktop = {

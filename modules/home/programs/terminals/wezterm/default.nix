@@ -6,9 +6,9 @@
 with lib;
 with lib.ndots;
 let
-  cfg = config.cli.terminals.wezterm;
+  cfg = config.programs.terminals.wezterm;
 in {
-  options.cli.terminals.wezterm = {
+  options.programs.terminals.wezterm = {
     enable = mkEnableOption "enable wezterm terminal emulator";
   };
 

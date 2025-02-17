@@ -8,9 +8,9 @@ with lib;
 with lib.ndots;
 
 let
-  cfg = config.cli.terminals.ghostty;
+  cfg = config.programs.terminals.ghostty;
 in {
-  options.cli.terminals.ghostty = {
+  options.programs.terminals.ghostty = {
     enable = mkEnableOption "enable ghostty terminal emulator";
   };
 

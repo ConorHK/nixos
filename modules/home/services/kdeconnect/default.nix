@@ -5,9 +5,9 @@
 }:
 with lib;
 with lib.ndots; let
-  cfg = config.services.nixicle.kdeconnect;
+  cfg = config.services.ndots.kdeconnect;
 in {
-  options.services.nixicle.kdeconnect = with types; {
+  options.services.ndots.kdeconnect = with types; {
     enable = mkBoolOpt false "Whether or not to manage kdeconnect";
   };
 

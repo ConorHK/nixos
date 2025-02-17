@@ -49,7 +49,7 @@ in {
                       sshUser = user;
                     }
                     // lib.optionalAttrs
-                    (host.config.security.nixicle.doas.enable or false)
+                    (host.config.security.ndots.doas.enable or false)
                     {
                       sudo = "doas -u";
                     };

@@ -5,9 +5,9 @@
 }:
 with lib;
 with lib.ndots; let
-  cfg = config.cli.terminals.foot;
+  cfg = config.programs.terminals.foot;
 in {
-  options.cli.terminals.foot = with types; {
+  options.programs.terminals.foot = with types; {
     enable = mkBoolOpt false "enable foot terminal emulator";
   };
 

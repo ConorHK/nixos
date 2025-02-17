@@ -5,9 +5,9 @@
 }:
 with lib;
 with lib.ndots; let
-  cfg = config.cli.terminals.alacritty;
+  cfg = config.programs.terminals.alacritty;
 in {
-  options.cli.terminals.alacritty = with types; {
+  options.programs.terminals.alacritty = with types; {
     enable = mkBoolOpt false "enable alacritty terminal emulator";
   };
 

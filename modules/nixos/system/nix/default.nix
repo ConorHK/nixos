@@ -4,7 +4,7 @@
   ...
 }:
 with lib;
-with lib.nixicle; let
+with lib.ndots; let
   cfg = config.system.nix;
 in {
   options.system.nix = with types; {
